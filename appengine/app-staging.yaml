@@ -10,6 +10,9 @@ handlers:
 - url: /
   static_files: ../app/views/index.html
   upload: ../app/views/index.html
+- url: /posts/deleted
+  static_files: ../app/views/deleted.html
+  upload: ../app/views/deleted.html
 - url: /assets/(.*)
   static_files: ../app/assets/\1
   upload: ../app/assets/(.*)
