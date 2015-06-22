@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html ng-app="Hashtag">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="initial-scale=1">
+  <title>Hashtag web</title>
+
+  <!-- Give some love to these dependencies -->
+  <!-- AKA add the damn bower or something! -->
+
+  <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/angular_material/0.10.0/angular-material.min.css">
+  <link rel="stylesheet" href="/assets/css/style.css">
+
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.15/angular.min.js"></script>
+
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.15/angular-animate.min.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.15/angular-aria.min.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/angular_material/0.10.0/angular-material.min.js"></script>
+
+
+  <script>
+    var HOST = 'http://localhost:8080';
+  </script>
+</head>
+<body>
+  <md-toolbar layout="row">
+    <div class="md-toolbar-tools">
+      <md-button ng-click="toggleSidenav('left')" hide-gt-sm class="md-icon-button">
+        <md-icon aria-label="Menu" md-svg-icon="https://s3-us-west-2.amazonaws.com/s.cdpn.io/68133/menu.svg"></md-icon>
+      </md-button>
+      <h1>Hashtag</h1>
+    </div>
+  </md-toolbar>
+
+
+
+  <md-content style="max-width: 800px; margin: auto;">
+
+    <h1>All Posts</h1>
+
+    <div layout="column" style="padding: 10px;">
+      <md-whiteframe class="md-whiteframe-z3">
+
+        <md-list ng-controller="FeedController">
+          <md-list-item ng-repeat="p in posts" class="md-3-line md-no-proxy">
+            <img ng-src="{{p.image || 'https://placeholdit.imgix.net/~text?txtsize=19&txt=200%C3%97150&w=200&h=150'}}" width="200">
+
+            <md-list-item-text>
+              <p>{{p.description}}</p>
+              <p>{{p.created_at}}</p>
+              <p>{{p.tags.split(', ') || 'No tags'}}</p>
+            </md-list-item-text>
+
+            <md-divider></md-divider>
+          </md-list-item>
+        </md-list>
+
+      </md-whiteframe>
+    </div>
+
+  </md-content>
+
+
+<script>
+    angular.module('Hashtag', ['ngMaterial'])
+    .controller('FeedController', function ($scope, $http) {
+      $http.post(HOST + '/login', {id: 'hashtag-web'}).success(function(data, status) {
+        $http.defaults.headers.common.Authorization = 'Basic ' + btoa(data.account.auth_token);
+
+        $http.get(HOST + '/posts').success(function(data, status) {
+            $scope.posts = data.posts;
+        });
+      });
+
+    });
+
+</script>
+
+</body>
+</html>
