@@ -34,11 +34,11 @@
 
 
 
-  <md-content style="max-width: 800px; margin: auto;">
+  <md-content>
 
     <h1>All Posts</h1>
 
-    <div layout="column" style="padding: 10px;">
+    <div layout="column">
       <md-whiteframe class="md-whiteframe-z3">
 
         <md-list ng-controller="FeedController">
@@ -47,7 +47,7 @@
 
             <md-list-item-text>
               <p>{{p.description}}</p>
-              <p>{{p.created_at}}</p>
+              <p>{{p.created_at | date: 'medium'}}</p>
               <p>{{p.tags.split(', ') || 'No tags'}}</p>
             </md-list-item-text>
 

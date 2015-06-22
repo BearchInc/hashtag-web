@@ -11,3 +11,8 @@ md-list-item {
 md-list-item-text {
   padding-left: 30px;
 }
+
+md-content {
+   max-width: 800px;
+   margin: auto;
+}
