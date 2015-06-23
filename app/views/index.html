@@ -90,7 +90,7 @@
       $scope.deletePost = function (p) {
         p.deleted = true, p.waiting = true;
 
-        $http.patch(HOST + p.delete_path)
+        $http.patch(HOST + p.path, {deleted: true})
         .success(function(data, status) {
           p.waiting = false;
         })
@@ -103,7 +103,7 @@
         p.waiting = true;
         p.deleted = false;
 
-        $http.delete(HOST + p.delete_path)
+        $http.patch(HOST + p.path, {deleted: false})
         .success(function(data, status) {
           p.waiting = false;
         })
