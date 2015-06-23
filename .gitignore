@@ -3,3 +3,13 @@
 *.DS_Store
 ds_storage
 
+bower_components/
+.env
+.idea
+bower_components/
+dist/
+
+node_modules¬
+npm-debug.log
+dist_manifest.json
+

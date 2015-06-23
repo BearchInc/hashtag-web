@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html ng-app="Hashtag">
+<head>
+<title>Hashtag</title>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width"/>
+
+<link rel="stylesheet" href="/public/dist/{{.AppCss}}"/>
+
+<script type="text/javascript" src="/public/dist/{{.AppLibsJs}}"></script>
+<script type="text/javascript" src="/public/dist/{{.AppJs}}"></script>
+<script type="text/javascript" src="/public/dist/{{.AppViewsJs}}"></script>
+</head>
+<body>
+<div ui-view="menu" class="header"></div>
+<div ui-view="body" class="container-fluid"></div>
+</body>
+</html>
