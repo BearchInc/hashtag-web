@@ -1,0 +1,38 @@
+<ul class="nav nav-tabs options">
+  <li class="{{deleted ? '' : 'active'}}">
+    <a href="javascript:;" ng-click="getFeed(false)">
+      <i class="fa fa-rss"></i>
+      All Posts
+    </a>
+  </li>
+  <li class="{{deleted ? 'active' : ''}}">
+    <a href="javascript:;" ng-click="getFeed(true)">
+      <i class="fa fa-trash"></i>
+      Deleted Posts
+    </a>
+  </li>
+</ul>
+
+
+<ul class="row styleless">
+  <li ng-repeat="p in posts" class="col-md-3">
+    <div class="thumbnail">
+      <img ng-src="{{p.image || 'https://placeholdit.imgix.net/~text?txtsize=19&txt=200%C3%97150&w=400&h=325'}}">
+
+      <div class="caption">
+        <p>{{p.description}}</p>
+
+        <div>
+          <a href="javascript:;" class="btn btn-danger" ng-disabled="!p.waiting && p.deleted" ng-click="deletePost(p)">
+            Delete
+          </a>
+
+          <a href="javascript:;" class="btn btn-default" ng-disabled="!p.waiting && !p.deleted" ng-click="restorePost(p)">
+            Restore
+          </a>
+        </div>
+      </div>
+    </div>
+
+  </li>
+</ul>

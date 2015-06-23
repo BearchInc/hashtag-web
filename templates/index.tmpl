@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html ng-app="Hashtag">
+<head>
+  <title>Hashtag</title>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width"/>
+
+  <link rel="stylesheet" href="/public/dist/{{.AppCss}}"/>
+
+  <script type="text/javascript">
+    var HOST = 'http://localhost:8080';
+  </script>
+</head>
+<body>
+
+  <header class="navbar navbar-default">
+    <a href="/" class="navbar-brand">Hashtag</a>
+  </header>
+
+  <div ui-view="body"></div>
+
+  <script type="text/javascript" src="/public/dist/{{.AppLibsJs}}"></script>
+  <script type="text/javascript" src="/public/dist/{{.AppJs}}"></script>
+  <script type="text/javascript" src="/public/dist/{{.AppViewsJs}}"></script>
+</body>
+</html>
