@@ -23,6 +23,14 @@ angular.module('Routes')
         controller: 'FeedCtrl',
       }),
     })
+    
+    .state('/signUp', {
+      url: '/signUp',
+      views: viewsWithMenu({
+        templateUrl: '/public/views/signUp.html',
+        controller: 'UserCtrl',
+      }),
+    })
 
   }
 ])
