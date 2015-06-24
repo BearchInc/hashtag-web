@@ -12,6 +12,7 @@ var gulp = require('gulp')
 var paths = {
   appSass: [
     'app/scss/app.scss',
+    'bower_components/ladda/dist/ladda-themeless.min.css',
   ],
   sassWatch: 'app/scss/**/*.scss',
   sassBootstrap: 'bower_components/bootstrap-sass-official/assets/stylesheets',
@@ -29,6 +30,9 @@ var paths = {
     'bower_components/angular-strap/dist/angular-strap.js',
     'bower_components/angular-strap/dist/angular-strap.tpl.js',
     'bower_components/moment/moment.js',
+    'bower_components/ladda/js/spin.js',
+    'bower_components/ladda/js/ladda.js',
+    'bower_components/angular-ladda/dist/angular-ladda.js',
   ],
 
   termsSass: 'app/scss/terms.scss',

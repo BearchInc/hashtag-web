@@ -3,6 +3,7 @@ angular.module('Controllers')
 .controller('FeedCtrl', function ($scope, $http, $location) {
 
   $scope.getFeed = function (deleted) {
+    $scope.posts = [];
     $scope.deleted = deleted;
 
     $http.get(HOST + '/posts?deleted=' + deleted).success(function(data, status) {
