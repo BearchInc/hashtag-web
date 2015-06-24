@@ -4,7 +4,7 @@ angular.module('Services')
   this.authenticate = function (credentials) {
     return $http.post(HOST + '/login', credentials).then(function(response) {
       if (response.status === 200) {
-        localStorage.setItem('authToken', response.data.auth_token);
+        this.setAuthToken(response.data.auth_token);
       }
     });
   };
@@ -16,11 +16,15 @@ angular.module('Services')
   this.logout = function () {
     var token = localStorage.getItem('authToken');
     $http.delete('/web/logout').success(function () {
-      localStorage.setItem('authToken', '');
+      this.setAuthToken('');
     });
   };
 
   this.authToken = function () {
     return localStorage.getItem('authToken');
+  };
+
+  this.setAuthToken = function(authToken) {
+    localStorage.setItem('authToken', authToken);
   };
 });
