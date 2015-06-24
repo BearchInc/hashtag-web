@@ -6,6 +6,9 @@
   <label>Username</label>
   <input ng-model="user.username" type="text" >
   <br>
+  <label>Password</label>
+  <input ng-model="user.password" type="password">
+  <br>
   <select ng-model="user.role">
     <option value="" disabled selected>User Role</option>
     <option ng-repeat="role in roles" value={{role.value}}>

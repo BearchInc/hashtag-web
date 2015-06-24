@@ -24,7 +24,7 @@ angular.module('Routes')
               }),
             })
 
-            .state('/signUp', {
+            .state('signUp', {
               url: '/signUp',
               views: viewsWithMenu({
                 templateUrl: '/public/views/signUp.html',
