@@ -1,21 +1,30 @@
-<form name="UserForm"  
-  ng-submit="UserForm.$valid && createUser()" novalidate>
-  <label>ID</label>
-  <input ng-model="user.id" type="text" required >
-  <br>
-  <label>Username</label>
-  <input ng-model="user.username" type="text" >
-  <br>
-  <label>Password</label>
-  <input ng-model="user.password" type="password">
-  <br>
-  <select ng-model="user.role">
-    <option value="" disabled selected>User Role</option>
-    <option ng-repeat="role in roles" value={{role.value}}>
-      {{role.name}}
-    </option>
-  </select>
-  <br>
+<div class="signUp">
+  <h1 class="signUp-header">Sign Up</h1>
+  <form name="UserForm"  
+    ng-submit="UserForm.$valid && createUser()" novalidate>
+    <div class="form-group">
+      <label>User ID</label>
+      <input ng-model="user.id" type="text" class="form-control" required >
+    </div>
 
-  <button type=submit>Create Account</button>
-</form>
+    <div class="form-group">
+      <label>Username</label>
+      <input ng-model="user.username" type="text" class="form-control">
+    </div>
+
+    <div class="form-group">
+      <label>Password</label>
+      <input ng-model="user.password" type="password" class="form-control">
+    </div>
+    <div class="form-group">
+      <select ng-model="user.role">
+        <option value="" disabled selected>User Role</option>
+        <option ng-repeat="role in roles" value="{{role.value}}">
+          {{role.name}}
+        </option>
+      </select>
+    </div>
+
+    <button type=submit class="btn btn-primary">Create Account</button>
+  </form>
+</div>
