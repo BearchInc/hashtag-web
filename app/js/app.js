@@ -6,6 +6,8 @@ var app = angular.module('Hashtag', [
   'Services',
 ]);
 
+app.constant('HOST', 'http://localhost:8080');
+
 
 angular.module('Routes', []);
 

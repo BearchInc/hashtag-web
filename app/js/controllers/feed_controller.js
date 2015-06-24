@@ -42,4 +42,3 @@ angular.module('Controllers')
   });
 
 });
-

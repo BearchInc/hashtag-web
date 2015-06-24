@@ -1,16 +1,14 @@
 angular.module('Services')
 
-.service('Auth', function ($http) {
+.service('Auth', function ($http, HOST) {
   this.authenticate = function (credentials) {
-    return $http.post('/web/login', credentials).then(function(response) {
+    return $http.post(HOST + '/login', credentials).then(function(response) {
       if (response.status === 200) {
-        localStorage.setItem('authToken', response.data.token);
-        localStorage.setItem('userPermissions', JSON.stringify(response.data.userPermissions));
+        localStorage.setItem('authToken', response.data.auth_token);
       }
     });
   };
 
-  // TODO move to CurrentUser
   this.authenticated = function () {
     return localStorage.getItem('authToken') !== '';
   };
@@ -22,7 +20,6 @@ angular.module('Services')
     });
   };
 
-  // TODO move to CurrentUser
   this.authToken = function () {
     return localStorage.getItem('authToken');
   };
