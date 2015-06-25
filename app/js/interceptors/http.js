@@ -13,7 +13,7 @@ angular.module('Interceptors')
         request: function (config) {
           var Auth = $injector.get('Auth');
           if (Auth.authToken()) {
-            config.headers['Authorization'] = Auth.authToken();
+            config.headers['Authorization'] = "Basic " + Auth.authToken();
           }
 
           return config

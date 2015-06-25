@@ -1,11 +1,6 @@
 angular.module('Controllers')
 
 .controller('FeedCtrl', function ($scope, $http, $location, $modal) {
-  $http.post(HOST + '/login', {id: 'hashtag-web'}).success(function(data, status) {
-    $http.defaults.headers.common.Authorization = 'Basic ' + btoa(data.account.auth_token);
-    $scope.getFeed($location.search().deleted);
-  });
-
   $scope.getFeed = function (deleted) {
     $scope.posts = [];
     $scope.deleted = deleted;
@@ -59,9 +54,8 @@ angular.module('Controllers')
     });
   };
 
-})
-
-.controller('ModalCtrl', function($scope, $modalInstance) {
+  $scope.getFeed(false);
+}).controller('ModalCtrl', function($scope, $modalInstance) {
   $scope.ok = function (block) {
     $modalInstance.close(block);
   };
@@ -69,4 +63,4 @@ angular.module('Controllers')
   $scope.cancel = function () {
     $modalInstance.dismiss('cancel');
   };
-})
+});

@@ -1,5 +1,6 @@
 var app = angular.module('Hashtag', [
   'ui.router',
+  'ui.bootstrap',
 
   'Routes',
   'Controllers',
