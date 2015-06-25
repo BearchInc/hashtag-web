@@ -1,15 +1,13 @@
 angular.module('Controllers')
 
-.controller('FeedCtrl', function ($scope, $http, $location, $modal) {
+.controller('FeedCtrl', function ($scope, $http, $location, $modal, $sce) {
   $scope.getFeed = function (deleted) {
     $scope.posts = [];
     $scope.deleted = deleted;
     $scope.showTabs = true;
     $scope.showRestore = true;
 
-    $http.get(HOST + '/posts?deleted=' + deleted).success(function(data, status) {
-      $scope.posts = data.posts;
-    });
+    $http.get(HOST + '/posts?deleted=' + deleted).success(handlePosts);
   }
   
   $scope.getTagFeed = function (tag) {
@@ -17,9 +15,18 @@ angular.module('Controllers')
     $scope.showTabs = false;
     $scope.showRestore = false;
 
-    $http.get(HOST + '/feeds/' + tag).success(function(data, status) {
-      $scope.posts = data.posts;
+    $http.get(HOST + '/feeds/' + tag).success(handlePosts);
+  }
+
+  function handlePosts (data, status) {
+    var posts = data.posts;
+    var tagregex = /#([a-zA-Z0-9_-]+)($|[ !.?,;:])/g;
+    posts.forEach(function(p, index, posts) {
+      posts[index].description = $sce.trustAsHtml(p.description.replace(tagregex, function(match, tag) {
+        return '<a href="/#/feed?tag=' + tag + '">' + match + '</a>';
+      }));
     });
+    $scope.posts = posts;
   }
 
   $scope.deletePost = function (p) {
