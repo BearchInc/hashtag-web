@@ -29,7 +29,7 @@
               Delete
             </a>
 
-            <a href="javascript:;" class="btn btn-default" ng-disabled="!p.restoringPost && !p.deleted" ng-click="restorePost(p)" ladda="p.restoringPost" data-style="expand-left">
+            <a href="javascript:;" class="btn btn-default" ng-show="{{showRestore}}" ng-disabled="!p.restoringPost && !p.deleted" ng-click="restorePost(p)" ladda="p.restoringPost" data-style="expand-left">
               Restore
             </a>
           </div>

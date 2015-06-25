@@ -5,6 +5,7 @@ angular.module('Controllers')
     $scope.posts = [];
     $scope.deleted = deleted;
     $scope.showTabs = true;
+    $scope.showRestore = true;
 
     $http.get(HOST + '/posts?deleted=' + deleted).success(function(data, status) {
       $scope.posts = data.posts;
@@ -14,6 +15,7 @@ angular.module('Controllers')
   $scope.getTagFeed = function (tag) {
     $scope.posts = [];
     $scope.showTabs = false;
+    $scope.showRestore = false;
 
     $http.get(HOST + '/feeds/' + tag).success(function(data, status) {
       $scope.posts = data.posts;
@@ -26,6 +28,15 @@ angular.module('Controllers')
     $http.delete(HOST + p.path)
     .success(function(data, status) {
       p.deletingPost = false;
+      
+      var i, index;
+      for (i = 0; i < $scope.posts.length; i++) {
+        if ($scope.posts[i].path === p.path) {
+          index = i;
+        }
+      }
+
+      $scope.posts.splice(index, 1);
     })
     .error(function () {
       p.deleted = false, p.deletingPost = false;
