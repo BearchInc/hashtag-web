@@ -15,7 +15,7 @@ angular.module('Controllers')
     $scope.posts = [];
     $scope.showTabs = false;
 
-    $http.get(HOST + '/feeds/:' + tag).success(function(data, status) {
+    $http.get(HOST + '/feeds/' + tag).success(function(data, status) {
       $scope.posts = data.posts;
     });
   }
@@ -64,8 +64,14 @@ angular.module('Controllers')
     });
   };
 
-  $scope.getFeed(false);
-}).controller('ModalCtrl', function($scope, $modalInstance) {
+  var params = $location.search();
+  if (params.tag) {
+    $scope.getTagFeed(params.tag);
+  } else {
+    $scope.getFeed(false);
+  }
+})
+.controller('ModalCtrl', function($scope, $modalInstance) {
   $scope.ok = function (block) {
     $modalInstance.close(block);
   };
