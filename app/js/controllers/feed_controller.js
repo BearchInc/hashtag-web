@@ -1,6 +1,10 @@
 angular.module('Controllers')
 
-.controller('FeedCtrl', function ($scope, $http, $location) {
+.controller('FeedCtrl', function ($scope, $http, $location, $modal) {
+  $http.post(HOST + '/login', {id: 'hashtag-web'}).success(function(data, status) {
+    $http.defaults.headers.common.Authorization = 'Basic ' + btoa(data.account.auth_token);
+    $scope.getFeed($location.search().deleted);
+  });
 
   $scope.getFeed = function (deleted) {
     $scope.posts = [];
@@ -12,33 +16,57 @@ angular.module('Controllers')
   }
 
   $scope.deletePost = function (p) {
-    p.deleted = true, p.waiting = true;
+    p.deleted = true, p.deletingPost = true;
 
-    $http.patch(HOST + p.path, {deleted: true})
+    $http.delete(HOST + p.path)
     .success(function(data, status) {
-      p.waiting = false;
+      p.deletingPost = false;
     })
     .error(function () {
-      p.deleted = false, p.waiting = false;
+      p.deleted = false, p.deletingPost = false;
     });
   };
 
   $scope.restorePost = function (p) {
-    p.waiting = true; p.deleted = false;
+    p.restoringPost = true; p.deleted = false;
 
-    $http.patch(HOST + p.path, {deleted: false})
+    $http.post(HOST + p.path)
     .success(function(data, status) {
-      p.waiting = false;
+      p.restoringPost = false;
     })
     .error(function () {
-      p.deleted = true; p.waiting = false;
+      p.deleted = true; p.restoringPost = false;
     });
   };
 
+  $scope.openModal = function (p) {
+    var modalInstance = $modal.open({
+      animation: true,
+      templateUrl: 'blockAuthor.html',
+      controller: 'ModalCtrl',
+      size: ''
+    });
 
-  $http.post(HOST + '/login', {id: 'hashtag-web'}).success(function(data, status) {
-    $http.defaults.headers.common.Authorization = 'Basic ' + btoa(data.account.auth_token);
-    $scope.getFeed($location.search().deleted);
-  });
+    modalInstance.result.then(function (block) {
+      block.post_id = p.id;
 
-});
+      $http.post(HOST + p.block_author_path, block)
+      .success(function(data, status) {
+      })
+      .error(function () {
+      });
+    }, function () {
+    });
+  };
+
+})
+
+.controller('ModalCtrl', function($scope, $modalInstance) {
+  $scope.ok = function (block) {
+    $modalInstance.close(block);
+  };
+
+  $scope.cancel = function () {
+    $modalInstance.dismiss('cancel');
+  };
+})
