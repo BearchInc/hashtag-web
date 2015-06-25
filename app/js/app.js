@@ -4,7 +4,7 @@ var app = angular.module('Hashtag', [
   'Routes',
   'Controllers',
   'Services',
-  'ui.bootstrap',
+  'Interceptors',
 ]);
 
 app.constant('HOST', 'http://localhost:8080');
@@ -18,3 +18,4 @@ angular.module('Services', []);
 
 angular.module('Controllers', ['Models']);
 
+angular.module('Interceptors', []);

@@ -18,6 +18,7 @@ angular.module('Routes')
 
             .state('feed', {
               url: '/feed',
+              authenticate: true,
               views: viewsWithMenu({
                 templateUrl: '/public/views/feed.html',
                 controller: 'FeedCtrl',
@@ -26,6 +27,7 @@ angular.module('Routes')
 
             .state('signUp', {
               url: '/signUp',
+              authenticate: true,
               views: viewsWithMenu({
                 templateUrl: '/public/views/signUp.html',
                 controller: 'UserCtrl',
@@ -47,7 +49,7 @@ angular.module('Routes')
 
   .run(function ($rootScope, $state, Auth) {
     $rootScope.$on('$stateChangeStart', function(event, toState) {
-      if (!Auth.authToken()) {
+      if (toState.authenticate && !Auth.authToken()) {
         $state.transitionTo('login');
         event.preventDefault();
       }
