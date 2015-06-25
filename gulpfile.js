@@ -33,6 +33,8 @@ var paths = {
     'bower_components/ladda/js/spin.js',
     'bower_components/ladda/js/ladda.js',
     'bower_components/angular-ladda/dist/angular-ladda.js',
+    'bower_components/angular-bootstrap/ui-bootstrap.js',
+    'bower_components/angular-bootstrap/ui-bootstrap-tpls.js',
   ],
 
   termsSass: 'app/scss/terms.scss',

@@ -4,6 +4,7 @@ var app = angular.module('Hashtag', [
   'Routes',
   'Controllers',
   'Services',
+  'ui.bootstrap',
 ]);
 
 app.constant('HOST', 'http://localhost:8080');
