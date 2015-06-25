@@ -1,10 +1,12 @@
 angular.module('Services')
 
 .service('Auth', function ($http, HOST) {
+  var self = this;
+
   this.authenticate = function (credentials) {
     return $http.post(HOST + '/login', credentials).then(function(response) {
       if (response.status === 200) {
-        this.setAuthToken(response.data.auth_token);
+        self.setAuthToken(btoa(response.data.auth_token));
       }
     });
   };
