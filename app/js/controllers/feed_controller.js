@@ -4,9 +4,19 @@ angular.module('Controllers')
   $scope.getFeed = function (deleted) {
     $scope.posts = [];
     $scope.deleted = deleted;
+    $scope.showTabs = true;
 
     $http.get(HOST + '/posts?deleted=' + deleted).success(function(data, status) {
-        $scope.posts = data.posts;
+      $scope.posts = data.posts;
+    });
+  }
+  
+  $scope.getTagFeed = function (tag) {
+    $scope.posts = [];
+    $scope.showTabs = false;
+
+    $http.get(HOST + '/feeds/:' + tag).success(function(data, status) {
+      $scope.posts = data.posts;
     });
   }
 
