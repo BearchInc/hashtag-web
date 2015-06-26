@@ -13,6 +13,7 @@ var paths = {
   appSass: [
     'app/scss/app.scss',
     'bower_components/ladda/dist/ladda-themeless.min.css',
+    'bower_components/angular-flash-alert/dist/angular-flash.css',
   ],
   sassWatch: 'app/scss/**/*.scss',
   sassBootstrap: 'bower_components/bootstrap-sass-official/assets/stylesheets',
@@ -35,6 +36,8 @@ var paths = {
     'bower_components/angular-ladda/dist/angular-ladda.js',
     'bower_components/angular-bootstrap/ui-bootstrap.js',
     'bower_components/angular-bootstrap/ui-bootstrap-tpls.js',
+    'bower_components/angular-flash-alert/dist/angular-flash.js',
+    'bower_components/angular-animate/angular-animate.js',
   ],
 
   termsSass: 'app/scss/terms.scss',

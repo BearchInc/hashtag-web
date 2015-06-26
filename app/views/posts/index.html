@@ -1,12 +1,12 @@
 <ul class="nav nav-tabs options" ng-show="{{showTabs}}">
-  <li class="{{deleted ? '' : 'active'}}">
-    <a href="javascript:;" ng-click="getFeed(false)">
+  <li class="{{deletedActive ? '' : 'active'}}">
+    <a href="javascript:;" ng-click="allPosts()">
       <i class="fa fa-rss"></i>
       All Posts
     </a>
   </li>
-  <li class="{{deleted ? 'active' : ''}}">
-    <a href="javascript:;" ng-click="getFeed(true)">
+  <li class="{{deletedActive ? 'active' : ''}}">
+    <a href="javascript:;" ng-click="deletedPosts()">
       <i class="fa fa-trash"></i>
       Deleted Posts
     </a>
@@ -15,7 +15,7 @@
 
 
 <ul class="row styleless">
-  <li ng-repeat="p in posts" class="col-md-3">
+  <li ng-repeat="p in posts track by $index" class="col-md-3">
     <div class="thumbnail">
 
       <img ng-src="{{p.image || 'https://placeholdit.imgix.net/~text?txtsize=19&txt=200%C3%97150&w=400&h=325'}}">
@@ -24,17 +24,17 @@
         <p ng-bind-html="p.description"> </p>
 
         <div class="row">
-          <div class="col-md-6">
-            <a href="javascript:;" class="btn btn-danger" ng-disabled="!p.deletingPost && p.deleted" ng-click="deletePost(p)" ladda="p.deletingPost" data-style="expand-left">
+          <div class="col-md-7">
+            <a href="javascript:;" class="btn btn-danger" ng-show="!p.deleted" ng-click="deletePost(p)" ladda="p.deletingPost" data-style="zoom-out">
               Delete
             </a>
 
-            <a href="javascript:;" class="btn btn-default" ng-show="{{showRestore}}" ng-disabled="!p.restoringPost && !p.deleted" ng-click="restorePost(p)" ladda="p.restoringPost" data-style="expand-left">
+            <a href="javascript:;" class="btn btn-primary" ng-show="p.deleted" ng-click="restorePost(p)" ladda="p.restoringPost" data-style="zoom-out">
               Restore
             </a>
           </div>
 
-          <div class="col-md-6 text-right">
+          <div class="col-md-5 text-right">
             <a href="javascript:;" class="btn btn-default" ng-click="openModal(p)">
               Block Author
             </a>

@@ -2,35 +2,31 @@ angular.module('Routes')
 
   .config(['$stateProvider', '$urlRouterProvider',
           function ($stateProvider, $urlRouterProvider) {
-            $urlRouterProvider.otherwise('/feed');
+            $urlRouterProvider.otherwise('/accounts');
 
             function viewsWithMenu(bodyView) {
               return {
-                menu: {
-                  templateUrl: '/public/views/menu.html',
-                  controller: 'MenuCtrl',
-                },
                 body: bodyView
               };
             }
 
             $stateProvider
 
-            .state('feed', {
-              url: '/feed',
+            .state('posts', {
+              url: '/posts',
               authenticate: true,
               views: viewsWithMenu({
-                templateUrl: '/public/views/feed.html',
-                controller: 'FeedCtrl',
+                templateUrl: '/public/views/posts/index.html',
+                controller: 'Posts_Index',
               }),
             })
 
-            .state('signUp', {
-              url: '/signUp',
+            .state('accounts_new', {
+              url: '/accounts/new',
               authenticate: true,
               views: viewsWithMenu({
-                templateUrl: '/public/views/signUp.html',
-                controller: 'UserCtrl',
+                templateUrl: '/public/views/accounts/new.html',
+                controller: 'Accounts_Create',
               }),
             })
 
@@ -38,7 +34,7 @@ angular.module('Routes')
               url: '/login',
               views: {
                 body: {
-                  templateUrl: '/public/views/login.html',
+                  templateUrl: '/public/views/application/login.html',
                   controller: 'LoginCtrl',
                 },
               },
