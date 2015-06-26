@@ -1,4 +1,4 @@
-<ul class="nav nav-tabs options">
+<ul class="nav nav-tabs options" ng-show="{{showTabs}}">
   <li class="{{deleted ? '' : 'active'}}">
     <a href="javascript:;" ng-click="getFeed(false)">
       <i class="fa fa-rss"></i>
@@ -21,7 +21,7 @@
       <img ng-src="{{p.image || 'https://placeholdit.imgix.net/~text?txtsize=19&txt=200%C3%97150&w=400&h=325'}}">
 
       <div class="caption">
-        <p>{{p.description}}</p>
+        <p ng-bind-html="p.description"> </p>
 
         <div class="row">
           <div class="col-md-6">
@@ -29,7 +29,7 @@
               Delete
             </a>
 
-            <a href="javascript:;" class="btn btn-default" ng-disabled="!p.restoringPost && !p.deleted" ng-click="restorePost(p)" ladda="p.restoringPost" data-style="expand-left">
+            <a href="javascript:;" class="btn btn-default" ng-show="{{showRestore}}" ng-disabled="!p.restoringPost && !p.deleted" ng-click="restorePost(p)" ladda="p.restoringPost" data-style="expand-left">
               Restore
             </a>
           </div>
