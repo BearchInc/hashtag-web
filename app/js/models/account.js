@@ -11,8 +11,6 @@ angular.module('Models')
   };
 
   Account.prototype.isAdmin = function () {
-    console.log(this.role)
-    console.log(Roles.Admin)
     return this.role === Roles.Admin;
   };
 

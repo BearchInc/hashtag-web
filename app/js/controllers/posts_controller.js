@@ -63,7 +63,6 @@ angular.module('Controllers')
   loadFeed();
 
   $scope.loadMorePosts = function () {
-    console.log('loading more posts');
     Post.loadMore($scope.cursor).success(function(data) {
       var more = data.posts;
       $scope.cursor = data.page_cursor;
