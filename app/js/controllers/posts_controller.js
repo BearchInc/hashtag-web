@@ -3,12 +3,15 @@ angular.module('Controllers')
 .controller('PostsIndex', function ($scope, $http, $modal, $sce, $location, Post, Flash) {
   $scope.allPosts = function () {
     $scope.deletedActive = false;
+    $scope.showTabs = true;
 
     Post.all().success(processData);
+    $scope.pauseScroll = false;
   };
 
   $scope.deletedPosts = function () {
     $scope.deletedActive = true;
+    $scope.showTabs = true;
 
     Post.deleted()
       .success(function(data, status) {
@@ -21,7 +24,7 @@ angular.module('Controllers')
   };
 
   $scope.getTagPosts = function (tag) {
-
+    $scope.showTabs = false;
     $http.get(HOST + '/feeds/' + tag).success(processData);
   };
 
@@ -31,8 +34,6 @@ angular.module('Controllers')
     $scope.posts = posts;
 
     $scope.cursor = data.page_cursor;
-
-    $scope.pauseScroll = false;
   }
 
   function handlePosts (posts) {
