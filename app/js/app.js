@@ -4,6 +4,7 @@ var app = angular.module('Hashtag', [
   'ui.bootstrap',
   'ngAnimate',
   'flash',
+  'infinite-scroll',
 
   'Routes',
   'Controllers',

@@ -14,7 +14,7 @@
 </ul>
 
 
-<ul class="row styleless">
+<ul infinite-scroll="loadMorePosts()" infinite-scroll-disabled="pauseScroll" infinite-scroll-distance="0" class="row styleless">
   <li ng-repeat="p in posts track by $index" class="col-md-3">
     <div class="thumbnail">
 

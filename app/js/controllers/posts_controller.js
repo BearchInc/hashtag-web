@@ -2,37 +2,40 @@ angular.module('Controllers')
 
 .controller('PostsIndex', function ($scope, $http, $modal, $sce, $location, Post, Flash) {
   $scope.allPosts = function () {
-    $scope.posts = [];
     $scope.deletedActive = false;
 
-    Post.all().success(handlePosts);
+    Post.all().success(processData);
   };
 
   $scope.deletedPosts = function () {
-    $scope.posts = [];
     $scope.deletedActive = true;
 
     Post.deleted()
-        .success(function(data, status) {
-          data.posts = data.posts.map(function (p) {
-            p.deleted = true;
-            return p;
-          });
-          handlePosts(data)
-        })
+      .success(function(data, status) {
+        data.posts = data.posts.map(function (p) {
+          p.deleted = true;
+          return p;
+        });
+        processData(data)
+      })
   };
 
-  $scope.allPosts();
+  $scope.getTagPosts = function (tag) {
 
-
-  $scope.getTagFeed = function (tag) {
-    $scope.posts = [];
-
-    $http.get(HOST + '/feeds/' + tag).success(handlePosts);
+    $http.get(HOST + '/feeds/' + tag).success(processData);
   };
 
-  function handlePosts (data) {
+  function processData (data) {
     var posts = data.posts;
+    handlePosts(posts);
+    $scope.posts = posts;
+
+    $scope.cursor = data.page_cursor;
+
+    $scope.pauseScroll = false;
+  }
+
+  function handlePosts (posts) {
     var tagregex = /#([a-zA-Z0-9_-]+)($|[ !.?,;:])/g;
 
     posts.forEach(function(p, index, posts) {
@@ -40,14 +43,12 @@ angular.module('Controllers')
         return '<a href="/#/posts?tag=' + tag + '">' + match + '</a>';
       }));
     });
-
-    $scope.posts = posts;
   }
 
   function loadFeed() {
     var params = $location.search();
     if (params.tag) {
-      $scope.getTagFeed(params.tag);
+      $scope.getTagPosts(params.tag);
     } else {
       $scope.allPosts();
     }
@@ -55,10 +56,26 @@ angular.module('Controllers')
 
   $scope.$on('$locationChangeStart', loadFeed);
 
+
+  $scope.posts = [];
+  $scope.cursor = "";
+  $scope.pauseScroll = true;
   loadFeed();
 
+  $scope.loadMorePosts = function () {
+    console.log('loading more posts');
+    Post.loadMore($scope.cursor).success(function(data) {
+      var more = data.posts;
+      $scope.cursor = data.page_cursor;
 
-
+      if (more.length === 0) {
+        $scope.pauseScroll = true;
+        return
+      }
+      handlePosts(more);
+      $scope.posts.push.apply($scope.posts, more);
+    });
+  };
 
   $scope.deletePost = function (p) {
     p.deletingPost = true;
