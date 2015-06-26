@@ -2,7 +2,7 @@ angular.module('Routes')
 
   .config(['$stateProvider', '$urlRouterProvider',
           function ($stateProvider, $urlRouterProvider) {
-            $urlRouterProvider.otherwise('/accounts');
+            $urlRouterProvider.otherwise('/posts');
 
             function viewsWithMenu(bodyView) {
               return {
