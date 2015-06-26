@@ -1,6 +1,9 @@
 var app = angular.module('Hashtag', [
   'ui.router',
+  'angular-ladda',
   'ui.bootstrap',
+  'ngAnimate',
+  'flash',
 
   'Routes',
   'Controllers',

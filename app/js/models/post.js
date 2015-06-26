@@ -1,15 +1,23 @@
 angular.module('Models')
 
-  .factory('Post', function ($http) {
-    var Post = {};
+.factory('Post', function ($http, HOST) {
+  var Post = function () {};
 
-    Post.get = function () {
-      return $http.get('/posts');
-    };
+  Post.all = function () {
+    return $http.get(HOST + '/posts');
+  };
 
-    Post.deleted = function () {
-      return $http.get('/posts?deleted=true');
-    };
+  Post.deleted = function () {
+    return $http.get(HOST + '/posts?deleted=true');
+  };
 
-    return Post;
-  });
+  Post.delete = function (post) {
+    return $http.delete(HOST + post.path);
+  };
+
+  Post.restore = function (post) {
+    return $http.post(HOST + post.path);
+  };
+
+  return Post;
+});
