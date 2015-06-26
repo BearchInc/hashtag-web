@@ -1,27 +1,26 @@
 angular.module('Controllers')
 
-.controller('AccountsCreate', function ($scope, $http, Account, Flash) {
+.controller('AccountsCreate', function ($scope, Account, Flash) {
   $scope.roles = Account.roles;
   $scope.account = new Account();
 
   $scope.createAccount = function() {
-    $http.post(HOST + '/accounts', $scope.account)
+    $scope.account.create()
+      .success(function(data, status, headers, config) {
+        if (status !== 200) {
+          Flash.create('danger', 'Err: ' + data);
+          return;
+        }
 
-    .success(function(data, status, headers, config) {
-      if (status !== 200) {
-        Flash.create('danger', 'Err: ' + data);
-        return;
-      }
+        $scope.AccountForm.$setPristine();
+        $scope.account = new Account();
 
-      $scope.account = new Account();
-      $scope.AccountForm.$setPristine();
+        Flash.create('success', 'Account successfully created');
+      })
 
-      Flash.create('success', 'Account successfully created');
-    })
-
-    .error(function(data, status, headers, config) {
-      Flash.create('danger', 'Error: ' + data);
-    });
+      .error(function(data, status, headers, config) {
+        Flash.create('danger', 'Error: ' + data);
+      });
   };
 
 });

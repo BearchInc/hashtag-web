@@ -1,9 +1,14 @@
 angular.module('Models')
 
-.factory('Account', function () {
+.factory('Account', function ($http) {
   var Account = function() {
-    this.role = Account.roles[0].value;
+    this.role = 1;
   };
+
+  Account.prototype.create = function () {
+    this.role = parseInt(this.role, 10);
+    return $http.post(HOST + '/accounts', this);
+  }
 
   Account.roles = [
     {
