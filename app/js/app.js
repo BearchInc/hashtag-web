@@ -20,6 +20,8 @@ angular.module('Models', []);
 
 angular.module('Services', []);
 
-angular.module('Controllers', ['Models']);
+angular.module('Controllers', ['Models']).run(function ($rootScope, Account) {
+  $rootScope.currentAccount = Account.current();
+});
 
 angular.module('Interceptors', []);

@@ -10,6 +10,10 @@
   <script type="text/javascript">
     var HOST = 'http://localhost:8080';
   </script>
+
+  <script type="text/javascript" src="/public/dist/{{.AppLibsJs}}"></script>
+  <script type="text/javascript" src="/public/dist/{{.AppJs}}"></script>
+  <script type="text/javascript" src="/public/dist/{{.AppViewsJs}}"></script>
 </head>
 <body>
 
@@ -21,7 +25,7 @@
         <li>
           <a ui-sref="posts">Posts</a>
         </li>
-        <li>
+        <li ng-if="currentAccount.isAdmin()">
           <a ui-sref="accounts_new">Accounts</a>
         </li>
       </ul>
@@ -31,9 +35,5 @@
   <div flash-message="5000"></div>
 
   <main ui-view="body"></main>
-
-  <script type="text/javascript" src="/public/dist/{{.AppLibsJs}}"></script>
-  <script type="text/javascript" src="/public/dist/{{.AppJs}}"></script>
-  <script type="text/javascript" src="/public/dist/{{.AppViewsJs}}"></script>
 </body>
 </html>

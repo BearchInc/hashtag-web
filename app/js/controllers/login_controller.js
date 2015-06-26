@@ -1,12 +1,12 @@
 angular.module('Controllers')
 
-.controller('LoginCtrl', function ($scope, $state, Auth) {
+.controller('LoginCtrl', function ($scope, $state, Auth, Flash) {
   $scope.login = function () {
     Auth.authenticate($scope.user).then(function () {
       if (Auth.authenticated()) {
         $state.transitionTo('posts');
       } else {
-        alert('Invalid user or password');
+        Flash.create('warn', 'Invalid login or password')
       }
     });
 
