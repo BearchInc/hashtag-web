@@ -34,7 +34,7 @@
             </a>
           </div>
 
-          <div class="col-md-5 text-right">
+          <div class="col-md-5 text-right" ng-if="currentAccount.isAdmin()">
             <a href="javascript:;" class="btn btn-default" ng-click="openModal(p)">
               Block Author
             </a>
