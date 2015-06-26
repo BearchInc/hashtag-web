@@ -82,12 +82,19 @@ angular.module('Controllers')
     });
   };
 
-  var params = $location.search();
-  if (params.tag) {
-    $scope.getTagFeed(params.tag);
-  } else {
-    $scope.getFeed(false);
+  function loadFeed() {
+    var params = $location.search();
+    if (params.tag) {
+      $scope.getTagFeed(params.tag);
+    } else {
+      $scope.getFeed(false);
+    }
   }
+
+  $scope.$on('$locationChangeStart', loadFeed);
+
+  loadFeed();
+
 })
 .controller('ModalCtrl', function($scope, $modalInstance) {
   $scope.ok = function (block) {
