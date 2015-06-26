@@ -1,6 +1,6 @@
 angular.module('Controllers')
 
-.controller('Accounts_Create', function ($scope, $http, Account, Flash) {
+.controller('AccountsCreate', function ($scope, $http, Account, Flash) {
   $scope.roles = Account.roles;
   $scope.account = new Account();
 

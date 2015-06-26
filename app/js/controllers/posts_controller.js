@@ -1,6 +1,6 @@
 angular.module('Controllers')
 
-.controller('Posts_Index', function ($scope, $http, $modal, Post, Flash) {
+.controller('PostsIndex', function ($scope, $http, $modal, Post, Flash) {
   $scope.allPosts = function () {
     $scope.posts = [];
     $scope.deletedActive = false;

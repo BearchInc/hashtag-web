@@ -17,7 +17,7 @@ angular.module('Routes')
               authenticate: true,
               views: viewsWithMenu({
                 templateUrl: '/public/views/posts/index.html',
-                controller: 'Posts_Index',
+                controller: 'PostsIndex',
               }),
             })
 
@@ -26,7 +26,7 @@ angular.module('Routes')
               authenticate: true,
               views: viewsWithMenu({
                 templateUrl: '/public/views/accounts/new.html',
-                controller: 'Accounts_Create',
+                controller: 'AccountsCreate',
               }),
             })
 
