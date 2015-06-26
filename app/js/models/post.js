@@ -19,5 +19,9 @@ angular.module('Models')
     return $http.post(HOST + post.path);
   };
 
+  Post.loadMore = function (cursor) {
+    return $http.get(HOST + '/posts?page_cursor=' + cursor);
+  }
+
   return Post;
 });

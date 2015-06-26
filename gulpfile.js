@@ -38,6 +38,7 @@ var paths = {
     'bower_components/angular-bootstrap/ui-bootstrap-tpls.js',
     'bower_components/angular-flash-alert/dist/angular-flash.js',
     'bower_components/angular-animate/angular-animate.js',
+    'bower_components/ngInfiniteScroll/build/ng-infinite-scroll.js'
   ],
 
   termsSass: 'app/scss/terms.scss',
