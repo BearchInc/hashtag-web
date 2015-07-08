@@ -21,7 +21,7 @@ var paths = {
     'app/js/app.js',
     'app/js/**/*.js',
   ],
-  appViews: 'app/views/**/*.html',
+  appViews: 'app/public/views/**/*.html',
   appLibs: [
     'bower_components/jquery/dist/jquery.js',
     'bower_components/bootstrap-sass-official/assets/javascripts/bootstrap.js',
@@ -43,13 +43,13 @@ var paths = {
 
   termsSass: 'app/scss/terms.scss',
 
-  dist: 'app/dist',
+  dist: 'app/public/dist',
   distFiles: [
-    'app/dist/app.css',
-    'app/dist/app.js',
-    'app/dist/app_libs.js',
-    'app/dist/app_views.js',
-    'app/dist/terms.css',
+    'app/public/dist/app.css',
+    'app/public/dist/app.js',
+    'app/public/dist/app_libs.js',
+    'app/public/dist/app_views.js',
+    'app/public/dist/terms.css',
   ]
 }
 
@@ -106,7 +106,7 @@ gulp.task('revision', function () {
   return gulp.src(paths.distFiles)
     .pipe(rev())
     .pipe(gulp.dest(paths.dist))
-    .pipe(rev.manifest({ path: '../dist_manifest.json' }))
+    .pipe(rev.manifest({ path: 'dist_manifest.json' }))
     .pipe(gulp.dest(paths.dist))
 });
 

@@ -1,0 +1,15 @@
+application: staging-api-getunseen
+module: hashtag
+version: 1
+runtime: go
+api_version: go1
+
+instance_class: F2
+
+handlers:
+- url: /
+  static_files: templates/index.html
+  upload: templates/index.html
+
+- url: /public
+  static_dir: public

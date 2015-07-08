@@ -12,7 +12,7 @@ var app = angular.module('Hashtag', [
   'Interceptors',
 ]);
 
-app.constant('HOST', 'http://localhost:8080');
+app.constant('HOST', HOST);
 
 
 angular.module('Routes', []);

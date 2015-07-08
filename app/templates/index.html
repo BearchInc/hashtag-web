@@ -5,15 +5,20 @@
   <meta charset="utf-8"/>
   <meta name="viewport" content="width=device-width"/>
 
-  <link rel="stylesheet" href="/public/dist/{{.AppCss}}"/>
+  <link rel="stylesheet" href="/public/dist/app.css"/>
 
   <script type="text/javascript">
-    var HOST = 'http://localhost:8080';
+    var HOST = "http://localhost:8080";
+    if (location.href.indexOf("staging-api-getunseen.appspot.com") != -1) {
+        HOST = "https://hobo-dot-staging-api-getunseen.appspot.com"
+    } else if(location.href.indexOf("api-getunseen.appspot.com") != -1) {
+        HOST = "https://hobo-dot-api-getunseen.appspot.com"
+    }
   </script>
 
-  <script type="text/javascript" src="/public/dist/{{.AppLibsJs}}"></script>
-  <script type="text/javascript" src="/public/dist/{{.AppJs}}"></script>
-  <script type="text/javascript" src="/public/dist/{{.AppViewsJs}}"></script>
+  <script type="text/javascript" src="/public/dist/app_libs.js"></script>
+  <script type="text/javascript" src="/public/dist/app.js"></script>
+  <script type="text/javascript" src="/public/dist/app_views.js"></script>
 </head>
 <body>
 
