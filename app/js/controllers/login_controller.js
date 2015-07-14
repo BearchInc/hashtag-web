@@ -1,6 +1,6 @@
 angular.module('Controllers')
 
-.controller('LoginCtrl', function ($scope, $state, Auth, Flash) {
+.controller('LoginCtrl', function ($scope, $state, Channel, Auth, Flash) {
   $scope.login = function () {
     Auth.authenticate($scope.user).then(function () {
       if (Auth.authenticated()) {

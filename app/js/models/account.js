@@ -51,5 +51,5 @@ angular.module('Models')
       value: Role.Admin
     }
   ];
-})
-;
+});
+

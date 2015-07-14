@@ -1,6 +1,6 @@
 angular.module('Controllers')
 
-.controller('PostsIndex', function ($scope, $http, $modal, $sce, $location, Post, Flash) {
+.controller('PostsIndex', function ($scope, $http, $modal, $sce, $location, Channel, Account, Post, Flash) {
   $scope.allPosts = function () {
     $scope.deletedActive = false;
     $scope.showTabs = true;
@@ -62,6 +62,30 @@ angular.module('Controllers')
   $scope.cursor = "";
   $scope.pauseScroll = true;
   loadFeed();
+
+  if(Account.current().isAdmin()) {
+    var handler = {
+      onopen: function() {
+        console.log("SOCKET OPENED");
+        $http.get(HOST+"/som");
+      },
+      onmessage: function(message) {
+        console.log("MESSAGE RECEIVED");
+        console.log(message);
+      },
+      onerror: function(error) {
+        console.log("SOCKET ERROR:");
+        console.log(error);
+      },
+      onclose: function() {
+        console.log("SOCKET CLOSED");
+      }
+    };
+    var socket = Channel.createSocket(handler);
+    setTimeout(function() {
+      socket.close();
+    }, 10000);
+  }
 
   $scope.loadMorePosts = function () {
     Post.loadMore($scope.cursor).success(function(data) {

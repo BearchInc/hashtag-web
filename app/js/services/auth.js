@@ -1,6 +1,6 @@
 angular.module('Services')
 
-.service('Auth', function ($http, HOST, $rootScope, Account) {
+.service('Auth', function (HOST, Account, Channel, $http, $rootScope) {
   var self = this;
 
   this.authenticate = function (credentials) {
@@ -9,6 +9,9 @@ angular.module('Services')
         self.setAuthToken(btoa(response.data.auth_token));
         localStorage.setItem('account', JSON.stringify(response.data))
         $rootScope.currentAccount = Account.current()
+        if($rootScope.currentAccount.isAdmin()) {
+          Channel.generateToken(Account.current().id);
+        }
       }
     });
   };
