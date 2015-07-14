@@ -43,13 +43,43 @@ angular.module('Routes')
 
   ])
 
-  .run(function ($rootScope, $state, Auth) {
+  .run(function ($rootScope, $state, Auth, $http) {
     $rootScope.$on('$stateChangeStart', function(event, toState) {
       if (toState.authenticate && !Auth.authToken()) {
         $state.transitionTo('login');
         event.preventDefault();
+
+        return;
       }
+
+      openChannel($http);
     });
 
     $rootScope.$state = $state;
   });
+
+
+
+var connected = false;
+
+function openChannel ($http) {
+  if (connected) return;
+
+  $http.post(HOST + "/channel/new").success(function(data) {
+    var socket = new goog.appengine.Channel(data.token).open();
+
+    socket.onopen = function() {
+      connected = true;
+    };
+
+    socket.onmessage = function(data) {
+      console.log(data);
+    };
+
+    socket.onerror = function(err) {
+    };
+
+    socket.onclose = function() {
+    };
+  });
+}

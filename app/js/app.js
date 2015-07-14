@@ -21,7 +21,7 @@ angular.module('Models', []);
 
 angular.module('Services', []);
 
-angular.module('Controllers', ['Models']).run(function ($rootScope, Account) {
+angular.module('Controllers', ['Models']).run(function ($rootScope, Account, $http, HOST) {
   $rootScope.currentAccount = Account.current();
 });
 
