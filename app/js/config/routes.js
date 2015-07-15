@@ -73,7 +73,8 @@ function openChannel ($http) {
     };
 
     socket.onmessage = function(data) {
-      console.log(data);
+      var post = JSON.parse(data.data);
+      console.log(post);
     };
 
     socket.onerror = function(err) {
