@@ -52,7 +52,7 @@ angular.module('Routes')
         return;
       }
 
-      openChannel($http);
+      openChannel($http, $rootScope);
     });
 
     $rootScope.$state = $state;
@@ -62,7 +62,7 @@ angular.module('Routes')
 
 var connected = false;
 
-function openChannel ($http) {
+function openChannel ($http, $rootScope) {
   if (connected) return;
 
   $http.post(HOST + "/channel/new").success(function(data) {
@@ -74,10 +74,12 @@ function openChannel ($http) {
 
     socket.onmessage = function(data) {
       var post = JSON.parse(data.data);
-      console.log(post);
+      $rootScope.$broadcast('newPost', {new_post: post});
     };
 
     socket.onerror = function(err) {
+      console.log("socket err:");
+      console.log(err);
     };
 
     socket.onclose = function() {

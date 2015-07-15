@@ -1,6 +1,6 @@
 angular.module('Controllers')
 
-.controller('PostsIndex', function ($scope, $http, $modal, $sce, $location, Post, Flash) {
+.controller('PostsIndex', function ($rootScope, $scope, $http, $modal, $sce, $location, Post, Flash) {
   $scope.allPosts = function () {
     $scope.deletedActive = false;
     $scope.showTabs = true;
@@ -39,8 +39,8 @@ angular.module('Controllers')
   function handlePosts (posts) {
     var tagregex = /#([a-zA-Z0-9_-]+)($|[ !.?,;:])/g;
 
-    posts.forEach(function(p, index, posts) {
-      posts[index].description = $sce.trustAsHtml(p.description.replace(tagregex, function(match, tag) {
+    posts.forEach(function(p) {
+      p.description = $sce.trustAsHtml(p.description.replace(tagregex, function(match, tag) {
         return '<a href="/#/posts?tag=' + tag + '">' + match + '</a>';
       }));
     });
@@ -55,13 +55,56 @@ angular.module('Controllers')
     }
   }
 
-  $scope.$on('$locationChangeStart', loadFeed);
-
-
   $scope.posts = [];
   $scope.cursor = "";
   $scope.pauseScroll = true;
   loadFeed();
+
+  $scope.$on('$locationChangeStart', loadFeed);
+
+  $rootScope.$on('newPost',
+    function(event, args) {
+      var post = args.new_post;
+
+      var description = post.description;
+
+      handlePosts([post]);
+      $scope.posts.unshift(post);
+
+      if (post.image) {
+        var imgsrc = post.image;
+        var URL = post.image;
+        var imgHTML = '<img src="{2}" width="200" height="160">';
+      } else {
+        var imgsrc = "No image";
+        var URL = '/posts';
+        var imgHTML = '<span data-notify="message">{2}</span>';
+      }
+      var body = $sce.trustAsHtml('<b>' + description + '</b>')
+
+      $.notify({
+        title: body,
+        message: imgsrc,
+        url: URL,
+      }, {
+        placement: {
+          from: 'top',
+          align: 'left'
+        },
+        delay: 5000,
+        template:
+        '<div data-notify="container" class="col-xs-11 col-sm-3 alert alert-{0}" role="alert">' +
+          '<button type="button" aria-hidden="true" class="close" data-notify="dismiss">×</button>' +
+          '<span data-notify="icon"></span> ' +
+          '<span data-notify="title">{1}</span><br> ' +
+          imgHTML +
+          '<a href="{3}" target="{4}" data-notify="url"></a>' +
+        '</div>'
+      });
+
+    }
+  );
+
 
   $scope.loadMorePosts = function () {
     Post.loadMore($scope.cursor).success(function(data) {
