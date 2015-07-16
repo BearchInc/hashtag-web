@@ -74,7 +74,7 @@ function openChannel ($http, $rootScope) {
 
     socket.onmessage = function(data) {
       var post = JSON.parse(data.data);
-      $rootScope.$broadcast('newPost', {new_post: post});
+      $rootScope.$broadcast('newPost', {newPost: post});
     };
 
     socket.onerror = function(err) {

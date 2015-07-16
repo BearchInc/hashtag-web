@@ -1,6 +1,6 @@
 angular.module('Controllers')
 
-.controller('PostsIndex', function ($rootScope, $scope, $http, $modal, $sce, $location, Post, Flash) {
+.controller('PostsIndex', function ($rootScope, $scope, $http, $window, $compile, $modal, $sce, $location, Post, Flash) {
   $scope.allPosts = function () {
     $scope.deletedActive = false;
     $scope.showTabs = true;
@@ -64,7 +64,8 @@ angular.module('Controllers')
 
   $rootScope.$on('newPost',
     function(event, args) {
-      var post = args.new_post;
+      var post = args.newPost;
+      $scope.newPost = post;
 
       var description = post.description;
 
@@ -72,39 +73,51 @@ angular.module('Controllers')
       $scope.posts.unshift(post);
 
       if (post.image) {
-        var imgsrc = post.image;
-        var URL = post.image;
-        var imgHTML = '<img src="{2}" width="200">';
+        var message = "";
+        var imgHTML = '<div id="image"></div>';
       } else {
-        var imgsrc = "No image";
-        var URL = '/posts';
-        var imgHTML = '<span data-notify="message">{2}</span>';
+        var message = "No image";
+        var imgHTML = '<span data-notify="message"><small>{2}</small></span>';
       }
       var body = $sce.trustAsHtml('<b>' + description + '</b>')
 
+
       $.notify({
         title: body,
-        message: imgsrc,
-        url: URL,
+        message: message,
       }, {
         placement: {
-          from: 'top',
-          align: 'left'
+          from: 'bottom',
+          align: 'right'
         },
-        delay: 5000,
-        template:
-        '<div data-notify="container" class="col-xs-11 col-sm-3 alert alert-{0}" role="alert">' +
+        delay: 10000,
+        mouse_over: 'pause',
+        template: '<div data-notify="container" id="piece-of-shit" class="col-xs-11 col-sm-3 alert alert-{0}" role="alert">' +
           '<button type="button" aria-hidden="true" class="close" data-notify="dismiss">×</button>' +
           '<span data-notify="icon"></span> ' +
           '<span data-notify="title">{1}</span><br> ' +
-          imgHTML +
-          '<a href="{3}" target="{4}" data-notify="url"></a>' +
-        '</div>'
+          imgHTML + '<br><br>' +
+          '<div id="delete-button"></div>' +
+        '</div>',
+        onShown: function() {
+          if($scope.newPost.image) {
+            $('#piece-of-shit').find('#image').replaceWith(
+              $compile('<img id="image" src="' + $scope.newPost.image + '" ng-click="openImage(newPost)" width="200">')($scope)
+            );
+          }
+          $('#piece-of-shit').find('#delete-button').replaceWith(
+              $compile('<a href="javascript:;" id="delete-button" data-notify="dismiss" class="btn btn-danger" ng-click="deletePost(newPost)"' +
+                       'ladda="newPost.deletingPost" data-style="zoom-out">' +
+                       'Delete </a>')($scope)
+          );
+        }
       });
-
     }
   );
 
+  $scope.openImage = function (p) {
+    $window.open(p.image, '_blank');
+  }
 
   $scope.loadMorePosts = function () {
     Post.loadMore($scope.cursor).success(function(data) {
