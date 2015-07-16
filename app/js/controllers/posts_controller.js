@@ -74,7 +74,7 @@ angular.module('Controllers')
       if (post.image) {
         var imgsrc = post.image;
         var URL = post.image;
-        var imgHTML = '<img src="{2}" width="200" height="160">';
+        var imgHTML = '<img src="{2}" width="200">';
       } else {
         var imgsrc = "No image";
         var URL = '/posts';
