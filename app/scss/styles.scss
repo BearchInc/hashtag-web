@@ -16,3 +16,23 @@ ul.styleless {
   list-style: none;
   padding: 0;
 }
+
+.post-author {
+  padding: 10px 0;
+}
+
+.image-wrapper {
+  $max-box-height: 300px;
+
+  overflow: hidden;
+  text-align: center;
+  height: $max-box-height;
+
+  > img {
+    max-height: $max-box-height;
+  }
+}
+
+.description {
+  height: 90px;
+}

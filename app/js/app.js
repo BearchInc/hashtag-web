@@ -5,11 +5,12 @@ var app = angular.module('Hashtag', [
   'ngAnimate',
   'flash',
   'infinite-scroll',
+  'yaru22.angular-timeago',
 
   'Routes',
   'Controllers',
   'Services',
-  'Interceptors',
+  'Interceptors'
 ]);
 
 app.constant('HOST', HOST);
@@ -21,7 +22,7 @@ angular.module('Models', []);
 
 angular.module('Services', []);
 
-angular.module('Controllers', ['Models']).run(function ($rootScope, Account, $http, HOST) {
+angular.module('Controllers', ['Models']).run(function ($rootScope, Account) {
   $rootScope.currentAccount = Account.current();
 });
 
