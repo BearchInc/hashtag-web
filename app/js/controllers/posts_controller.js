@@ -120,7 +120,7 @@ angular.module('Controllers')
     };
 
     $scope.loadMorePosts = function () {
-      if ($scope.cursor.length == 0) return;
+      if (! $scope.cursor) return;
 
       Post.loadMore($scope.cursor).success(function (data) {
         var more = data.posts;
