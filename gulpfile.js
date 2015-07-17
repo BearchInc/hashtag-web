@@ -39,7 +39,8 @@ var paths = {
     'bower_components/angular-flash-alert/dist/angular-flash.js',
     'bower_components/angular-animate/angular-animate.js',
     'bower_components/remarkable-bootstrap-notify/dist/bootstrap-notify.js',
-    'bower_components/ngInfiniteScroll/build/ng-infinite-scroll.js'
+    'bower_components/ngInfiniteScroll/build/ng-infinite-scroll.js',
+    'bower_components/angular-timeago/src/timeAgo.js'
   ],
 
   termsSass: 'app/scss/terms.scss',

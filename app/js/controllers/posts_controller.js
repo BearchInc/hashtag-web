@@ -115,10 +115,6 @@ angular.module('Controllers')
     }
   );
 
-  $scope.openImage = function (p) {
-    $window.open(p.image, '_blank');
-  }
-
   $scope.loadMorePosts = function () {
     if($scope.cursor.length == 0) return;
 

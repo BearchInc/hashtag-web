@@ -14,22 +14,37 @@
 </ul>
 
 
-<ul infinite-scroll="loadMorePosts()" infinite-scroll-disabled="pauseScroll" infinite-scroll-distance="0" class="row styleless">
-  <li ng-repeat="p in posts track by $index" class="col-md-3">
+<ul infinite-scroll="loadMorePosts()" infinite-scroll-disabled="pauseScroll" infinite-scroll-distance="0"
+    class="row styleless">
+  <li ng-repeat="p in posts" class="col-md-3">
     <div class="thumbnail">
 
-      <img ng-click="openImage(p)" ng-src="{{p.image || 'https://placeholdit.imgix.net/~text?txtsize=19&txt=200%C3%97150&w=400&h=325'}}">
+      <div class="image-wrapper">
+        <a ng-href="{{p.image}}">
+          <img ng-src="{{p.image || 'https://placeholdit.imgix.net/~text?txtsize=19&txt=200%C3%97150&w=400&h=325'}}">
+        </a>
+      </div>
 
       <div class="caption">
-        <p ng-bind-html="p.description"> </p>
+        <p class="description" ng-bind-html="p.description"></p>
+
+
+        <div ng-if="p.creator_user_name" class="post-author">
+          Created by
+          <a href="/#/posts?tag={{p.creator_user_name}}">{{p.creator_user_name}}</a>
+
+          {{p.created_at | timeAgo}}
+        </div>
 
         <div class="row">
           <div class="col-md-7">
-            <a href="javascript:;" class="btn btn-danger" ng-show="!p.deleted" ng-click="deletePost(p)" ladda="p.deletingPost" data-style="zoom-out">
+            <a href="javascript:;" class="btn btn-danger" ng-show="!p.deleted" ng-click="deletePost(p)"
+               ladda="p.deletingPost" data-style="zoom-out">
               Delete
             </a>
 
-            <a href="javascript:;" class="btn btn-primary" ng-show="p.deleted" ng-click="restorePost(p)" ladda="p.restoringPost" data-style="zoom-out">
+            <a href="javascript:;" class="btn btn-primary" ng-show="p.deleted" ng-click="restorePost(p)"
+               ladda="p.restoringPost" data-style="zoom-out">
               Restore
             </a>
           </div>
@@ -50,28 +65,30 @@
 
 
 <script type="text/ng-template" id="blockAuthor.html">
-    <div class="modal-header">
-        <h3 class="modal-title">Block Author</h3>
-    </div>
-    <div class="modal-body">
-      <form class="form-horizontal">
-        <div class="form-group">
-          <label class="col-sm-6 control-label">For how long (in hours) this Author should be BLOCKED?</label>
-          <div class="col-sm-6">
-            <input type="number" class="form-control" placeholder="e.g. 24" ng-model="block.duration">
-          </div>
-        </div>
+  <div class="modal-header">
+    <h3 class="modal-title">Block Author</h3>
+  </div>
+  <div class="modal-body">
+    <form class="form-horizontal">
+      <div class="form-group">
+        <label class="col-sm-6 control-label">For how long (in hours) this Author should be BLOCKED?</label>
 
-        <div class="form-group">
-          <label class="col-sm-6 control-label">What's the MAIN REASON for blocking this Author?</label>
-          <div class="col-sm-6">
-            <input type="text" class="form-control" placeholder="e.g. Showed a Dick Pick" ng-model="block.reason">
-          </div>
+        <div class="col-sm-6">
+          <input type="number" class="form-control" placeholder="e.g. 24" ng-model="block.duration">
         </div>
-      </form>
-    </div>
-    <div class="modal-footer">
-        <button class="btn btn-success" ng-click="ok(block)">Block this Author</button>
-        <button class="btn btn-default" ng-click="cancel()">Cancel</button>
-    </div>
+      </div>
+
+      <div class="form-group">
+        <label class="col-sm-6 control-label">What's the MAIN REASON for blocking this Author?</label>
+
+        <div class="col-sm-6">
+          <input type="text" class="form-control" placeholder="e.g. Showed a Dick Pick" ng-model="block.reason">
+        </div>
+      </div>
+    </form>
+  </div>
+  <div class="modal-footer">
+    <button class="btn btn-success" ng-click="ok(block)">Block this Author</button>
+    <button class="btn btn-default" ng-click="cancel()">Cancel</button>
+  </div>
 </script>
