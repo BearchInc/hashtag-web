@@ -23,6 +23,14 @@
       <div class="caption">
         <p ng-bind-html="p.description"> </p>
 
+        <div class="row" ng-if="p.creator_user_name">
+          <div class="col-md-12 text-right pull-right">
+            <a href="/#/posts?tag={{p.creator_user_name}}" class="btn btn-default">
+              {{p.creator_user_name}}
+            </a>
+          </div>
+        </div>
+
         <div class="row">
           <div class="col-md-7">
             <a href="javascript:;" class="btn btn-danger" ng-show="!p.deleted" ng-click="deletePost(p)" ladda="p.deletingPost" data-style="zoom-out">
