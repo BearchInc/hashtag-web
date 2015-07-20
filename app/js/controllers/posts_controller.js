@@ -3,15 +3,12 @@ angular.module('Controllers')
   .controller('PostsIndex', function ($rootScope, $scope, $http, $window, $compile, $modal, $sce, $location, Post, Flash) {
     $scope.allPosts = function () {
       $scope.deletedActive = false;
-      $scope.showTabs = true;
 
       Post.all().success(processData);
-      $scope.pauseScroll = false;
     };
 
     $scope.deletedPosts = function () {
       $scope.deletedActive = true;
-      $scope.showTabs = true;
 
       Post.deleted()
         .success(function (data, status) {
@@ -20,11 +17,10 @@ angular.module('Controllers')
             return p;
           });
           processData(data)
-        })
+        });
     };
 
     $scope.getTagPosts = function (tag) {
-      $scope.showTabs = false;
       $http.get(HOST + '/feeds/' + tag).success(processData);
     };
 
@@ -33,7 +29,7 @@ angular.module('Controllers')
       handlePosts(posts);
       $scope.posts = posts;
 
-      $scope.cursor = data.page_cursor;
+      $scope.cursor = $scope.tag ? data.next_page_cursor : data.page_cursor;
     }
 
     function handlePosts(posts) {
@@ -47,16 +43,22 @@ angular.module('Controllers')
     }
 
     function loadFeed() {
+      $scope.cursor = "";
+      $window.scrollTo(0, 0);
       var params = $location.search();
       if (params.tag) {
+        $scope.showTabs = false;
+        $scope.tag = params.tag;
         $scope.getTagPosts(params.tag);
       } else {
+        $scope.showTabs = true;
+        $scope.tag = "";
         $scope.allPosts();
       }
+      $scope.pauseScroll = false;
     }
 
     $scope.posts = [];
-    $scope.cursor = "";
     $scope.pauseScroll = true;
     loadFeed();
 
@@ -122,18 +124,24 @@ angular.module('Controllers')
     $scope.loadMorePosts = function () {
       if (! $scope.cursor) return;
 
-      Post.loadMore($scope.cursor).success(function (data) {
-        var more = data.posts;
-        $scope.cursor = data.page_cursor;
+      var req = $scope.tag ?
+        Post.loadMoreFromTag($scope.tag, $scope.cursor) :
+        Post.loadMore($scope.deletedActive, $scope.cursor);
 
-        if (more.length === 0) {
-          $scope.pauseScroll = true;
-          return
-        }
-        handlePosts(more);
-        $scope.posts.push.apply($scope.posts, more);
-      });
+      req.success(handleMore);
     };
+
+    function handleMore(data) {
+      var more = data.posts;
+      $scope.cursor = $scope.tag ? data.next_page_cursor : data.page_cursor;
+
+      if (more.length === 0) {
+        $scope.pauseScroll = true;
+        return
+      }
+      handlePosts(more);
+      $scope.posts.push.apply($scope.posts, more);
+    }
 
     $scope.deletePost = function (p) {
       p.deletingPost = true;
