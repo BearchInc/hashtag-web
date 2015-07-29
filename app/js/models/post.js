@@ -19,8 +19,12 @@ angular.module('Models')
     return $http.post(HOST + post.path);
   };
 
-  Post.loadMore = function (cursor) {
-    return $http.get(HOST + '/posts?page_cursor=' + cursor);
+  Post.loadMoreFromTag = function(tag, cursor) {
+    return $http.get(HOST + '/feeds/' + tag + '?next_page_cursor=' + cursor);
+  }
+
+  Post.loadMore = function (deleted, cursor) {
+    return $http.get(HOST + '/posts?deleted=' + deleted + '&page_cursor=' + cursor);
   }
 
   return Post;
