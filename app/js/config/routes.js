@@ -30,6 +30,33 @@ angular.module('Routes')
               }),
             })
 
+            .state('trendings', {
+              url: '/trendings',
+              authenticate: true,
+              views: viewsWithMenu({
+                templateUrl: '/public/views/trendings/index.html',
+                controller: 'TrendingsIndex',
+              }),
+            })
+
+            .state('trendings-new', {
+              url: '/trendings/new',
+              authenticate: true,
+              views: viewsWithMenu({
+                templateUrl: '/public/views/trendings/new.html',
+                controller: 'TrendingsNew',
+              }),
+            })
+
+            .state('trendings-edit', {
+              url: '/trendings/:id/edit',
+              authenticate: true,
+              views: viewsWithMenu({
+                templateUrl: '/public/views/trendings/edit.html',
+                controller: 'TrendingsEdit',
+              }),
+            })
+
             .state('login', {
               url: '/login',
               views: {

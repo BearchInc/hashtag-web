@@ -1,0 +1,38 @@
+<div class="container">
+  <div class="row">
+    <div class="col-lg-12">
+      <div class="h3">
+        Trending Hashtags
+        <a class="btn btn-success"
+          ui-sref="trendings-new">New Trending Hashtag</a>
+      </div>
+      <div class="table-responsive">
+        <table class="table table-striped">
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>Name</th>
+              <th>Rank</th>
+              <th>Action</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr ng-repeat="trending in trendings">
+              <td>{{$index+1}}</td>
+              <td>{{trending.name}}</td>
+              <td>{{trending.rank}}</td>
+              <td>
+                <button type="button"
+                  class="btn btn-warning btn-sm"
+                  ui-sref="trendings-edit({ id: trending.id})">Edit</button>
+                <button class="btn btn-sm btn-danger"
+                  ng-click="delete(trending.id, $index)">Delete</button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+

@@ -1,0 +1,17 @@
+<div class="small-page">
+  <h1>Create Trending Hashtag</h1>
+
+  <form role="form" action="" ng-submit="create(trending)">
+    <div class="form-group">
+      <label>Name</label>
+      <input ng-model="trending.name" type="text" class="form-control" required>
+    </div>
+
+    <div class="form-group">
+      <label>Rank</label>
+      <input ng-model="trending.rank" type="text" class="form-control" required>
+    </div>
+
+    <button type=submit class="btn btn-success">Create</button>
+  </form>
+</div>
