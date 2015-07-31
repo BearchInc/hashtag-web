@@ -3,7 +3,7 @@ angular.module('Controllers')
 .controller('TrendingsIndex', function ($scope, Trending, Flash) {
   $scope.trendings = {};
 
-  var removeCommentFromView = function (idx) {
+  var removeTagFromView = function (idx) {
     $scope.trendings.splice(idx, 1);
   };
 
@@ -13,7 +13,7 @@ angular.module('Controllers')
 
   $scope.delete = function(id, idx) {
     Trending.delete(id).then(function(data) {
-      removeCommentFromView(idx);
+      removeTagFromView(idx);
     });
   }
 });
