@@ -5,6 +5,10 @@ angular.module('Controllers')
 
   $scope.create = function(trending) {
     Trending.create(trending).success(function(data, status) {
+      if(status != 201) {
+        Flash.create('danger', 'Error: ' + data);
+        return;
+      }
       Flash.create('success', 'Trending successfully created');
     })
 

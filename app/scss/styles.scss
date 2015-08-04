@@ -1,3 +1,7 @@
+.as-sortable-item, .as-sortable-placeholder {
+  display: table-row !important;
+}
+
 .small-page {
   max-width: 400px;
   margin-left: auto;
@@ -36,3 +40,4 @@ ul.styleless {
 .description {
   height: 90px;
 }
+

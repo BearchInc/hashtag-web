@@ -16,6 +16,10 @@ angular.module('Models')
     return $http.patch(HOST + '/tags/trending', trending);
   };
 
+  Trending.batchUpdate = function (trendings) {
+    return $http.patch(HOST + '/tags/trendings/batch', {"tags": trendings});
+  };
+
   Trending.delete = function (id) {
     return $http.delete(HOST + '/tags/trending/' + id);
   };

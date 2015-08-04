@@ -1,10 +1,11 @@
 var app = angular.module('Hashtag', [
-  'ui.router',
   'angular-ladda',
-  'ui.bootstrap',
-  'ngAnimate',
+  'angular-sortable-view',
   'flash',
   'infinite-scroll',
+  'ngAnimate',
+  'ui.bootstrap',
+  'ui.router',
   'yaru22.angular-timeago',
 
   'Routes',
