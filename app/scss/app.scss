@@ -5,3 +5,7 @@ $container-lg: 600px;
 @import "bootstrap";
 @import "bootstrap/glyphicons";
 @import "styles";
+
+.table-striped tr {
+  cursor: move;
+}
