@@ -2,6 +2,22 @@
 
 Hobo
 
+Login: kormie
+Password: dkormie
+
+Admin Routes
+
+```
+GET /tags/trending/:id # Get trending tag
+POST /tags/trending # Create a trending tag
+PATCH /tags/trending # Update a trending tag
+PATCH /tags/trendings/batch # Update a trending tag in batch
+DELETE /tags/trending/:id # Delete a trending tag
+
+POST /accounts/:id/blocks # Block user
+POST /accounts # Create User
+```
+
 # Requirements
 
 1. Install gcloud tool
@@ -17,21 +33,21 @@ goapp serve -host 0.0.0.0 -port 8080 -admin_port 8000 app/app-staging.yaml
 
 1. Login:
 
-	```
-	gcloud auth login
-	```
-	
+```
+gcloud auth login
+```
+
 2. Deploy to AppEngine
 
-	```
-	goapp deploy -application staging-api-getunseen app/app-<environment>.yaml
-	```
+```
+goapp deploy -application staging-api-getunseen app/app-<environment>.yaml
+```
 
 3. Query the Datastore you have to use the namespace 'hobo'
-[Click here:](http://localhost:8000/datastore?kind=Account&namespace=hobo) 
-	```
-	http://localhost:8000/datastore?kind=Account&namespace=hobo
-	```
+[Click here:](http://localhost:8000/datastore?kind=Account&namespace=hobo)
+```
+http://localhost:8000/datastore?kind=Account&namespace=hobo
+```
 
 # Snap CI
 
@@ -50,20 +66,20 @@ Some of the APIs supporting `Namespaces` are: `Datastore`, `memcache`, `taskqueu
 
 Exemple of `Namespace` usage with `Datastore`:
 
-```golang
-gae := appengine.NewContext(c.Request)
-gaeNamespace := appengine.ModuleName(gae)
+  ```golang
+  gae := appengine.NewContext(c.Request)
+  gaeNamespace := appengine.ModuleName(gae)
 namespacedContext, _ := appengine.Namespace(gae, gaeNamespace)
 
-apiInfo := struct { Endpoint, Namespace, Version string }{
-	Endpoint: "/v1/hobo",
-	Namespace: gaeNamespace,
-}
+  apiInfo := struct { Endpoint, Namespace, Version string }{
+Endpoint: "/v1/hobo",
+            Namespace: gaeNamespace,
+  }
 
 key := datastore.NewKey(namespacedContext, "ApiInfo", "ApiInfo", 0, nil)
 datastore.Put(namespacedContext, key, &apiInfo)
-```
+  ```
 
 # Future work
 
-Need to introduce a `Smoke Tests` step in the pipeline after each deploy to each environment.
+  Need to introduce a `Smoke Tests` step in the pipeline after each deploy to each environment.
